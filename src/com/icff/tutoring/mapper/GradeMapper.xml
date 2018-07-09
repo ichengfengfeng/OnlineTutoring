@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icff.tutoring.mapper.GradeMapper" >
+  <resultMap id="BaseResultMap" type="com.icff.tutoring.po.Grade" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gradename" property="gradename" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="yxbz" property="yxbz" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, gradename, rank, yxbz
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.icff.tutoring.po.GradeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from grade
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.icff.tutoring.po.GradeExample" >
+    delete from grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.icff.tutoring.po.Grade" >
+    insert into grade (id, gradename, rank, 
+      yxbz)
+    values (#{id,jdbcType=INTEGER}, #{gradename,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, 
+      #{yxbz,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icff.tutoring.po.Grade" >
+    insert into grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gradename != null" >
+        gradename,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="yxbz != null" >
+        yxbz,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gradename != null" >
+        #{gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="yxbz != null" >
+        #{yxbz,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.icff.tutoring.po.GradeExample" resultType="java.lang.Integer" >
+    select count(*) from grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update grade
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradename != null" >
+        gradename = #{record.gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=INTEGER},
+      </if>
+      <if test="record.yxbz != null" >
+        yxbz = #{record.yxbz,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update grade
+    set id = #{record.id,jdbcType=INTEGER},
+      gradename = #{record.gradename,jdbcType=VARCHAR},
+      rank = #{record.rank,jdbcType=INTEGER},
+      yxbz = #{record.yxbz,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icff.tutoring.po.Grade" >
+    update grade
+    <set >
+      <if test="gradename != null" >
+        gradename = #{gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="yxbz != null" >
+        yxbz = #{yxbz,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icff.tutoring.po.Grade" >
+    update grade
+    set gradename = #{gradename,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=INTEGER},
+      yxbz = #{yxbz,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllGrade" resultType="com.icff.tutoring.po.Grade">
+  select 
+   <include refid="Base_Column_List" />
+   from grade where yxbz = 'Y'
+  </select>
+  <select id="selectAllGradeByPage" parameterType="map" resultType="com.icff.tutoring.po.Grade">
+  select @num := @num + 1 as num,id,gradename,rank,yxbz
+   from grade,(select @num := 0) tmp_row_number where yxbz = 'Y'  order by rank
+   limit #{start,jdbcType=INTEGER},#{end,jdbcType=INTEGER} 
+  </select>
+  
+  <select id="selectAllCount" resultType="java.lang.Integer">
+  select count(*) as maxcount from grade where yxbz = 'Y';
+  </select>
+  
+  <update id="deleteGrades">
+  update  grade set yxbz='N' where id in
+  <foreach collection="array" open="(" close=")" separator="," item="id">
+   #{id}
+  </foreach>
+  </update>
+  <insert id="insertGradeAutoid" parameterType="com.icff.tutoring.po.Grade" useGeneratedKeys="true" keyProperty="id">
+   insert into grade(id,gradename,rank,yxbz) value( (select id from (select ifnull(max(id),0)+1 as id from grade) a),#{gradename},#{rank},#{yxbz})
+  </insert>
+</mapper>

@@ -1,0 +1,26 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../config/ehcache.xsd" updateCheck="false">
+	<diskStore path="D:\ehcache"/>
+	<defaultCache 
+		maxElementsInMemory="1000" 
+		maxElementsOnDisk="10000000"
+		eternal="false" 
+		overflowToDisk="false" 
+		timeToIdleSeconds="120"
+		timeToLiveSeconds="120" 
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU">
+	</defaultCache>
+</ehcache>
+<!-- maxElementsInMemory  缓存中允许创建的最大对象数  
+     maxElementsOnDisk    缓存中允许创建的最大对象数 
+     eternal：Element是否永久有效，一但设置了，timeout将不起作用，对象永不过期。
+     overflowToDisk：内存不足时，是否启用磁盘缓存.
+     timeToIdleSeconds：缓存数据的钝化时间，也就是在一个元素消亡之前，                    
+                                            两次访问时间的最大时间间隔值，这只能在元素不是永久驻留时有效，                    
+                                            如果该值是 0 就意味着元素可以停顿无穷长的时间。        
+     timeToLiveSeconds：缓存数据的生存时间，也就是一个元素从构建到消亡的最大时间间隔值，   
+     diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是120秒	
+     memoryStoreEvictionPolicy：缓存满了之后的淘汰算法。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）
+ 
+  -->

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icff.tutoring.mapper.StuannouncementMapper" >
+  <resultMap id="BaseResultMap" type="com.icff.tutoring.po.Stuannouncement" >
+    <id column="stuannouuid" property="stuannouuid" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="typeid" property="typeid" jdbcType="VARCHAR" />
+    <result column="stuuuid" property="stuuuid" jdbcType="VARCHAR" />
+    <result column="are_id" property="areId" jdbcType="INTEGER" />
+    <result column="other_desc" property="otherDesc" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="yxbz" property="yxbz" jdbcType="CHAR" />
+    <result column="pubdate" property="pubdate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stuannouuid, id, typeid, stuuuid, are_id, other_desc, sex, yxbz, pubdate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.icff.tutoring.po.StuannouncementExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stuannouncement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from stuannouncement
+    where stuannouuid = #{stuannouuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from stuannouncement
+    where stuannouuid = #{stuannouuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.icff.tutoring.po.StuannouncementExample" >
+    delete from stuannouncement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.icff.tutoring.po.Stuannouncement" >
+    insert into stuannouncement (stuannouuid, id, typeid, 
+      stuuuid, are_id, other_desc, 
+      sex, yxbz, pubdate)
+    values (#{stuannouuid,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{typeid,jdbcType=VARCHAR}, 
+      #{stuuuid,jdbcType=VARCHAR}, #{areId,jdbcType=INTEGER}, #{otherDesc,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{yxbz,jdbcType=CHAR}, #{pubdate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icff.tutoring.po.Stuannouncement" >
+    insert into stuannouncement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuannouuid != null" >
+        stuannouuid,
+      </if>
+      <if test="id != null and id !=0"   >
+        id,
+      </if>
+      <if test="typeid != null and typeid != '' " >
+        typeid,
+      </if>
+      <if test="stuuuid != null and stuuuid !='' " >
+        stuuuid,
+      </if>
+      <if test="areId != null and areId !=0" >
+        are_id,
+      </if>
+      <if test="otherDesc != null" >
+        other_desc,
+      </if>
+      <if test="sex != null and sex != 0" >
+        sex,
+      </if>
+      <if test="yxbz != null" >
+        yxbz,
+      </if>
+      <if test="pubdate != null" >
+        pubdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuannouuid != null" >
+        #{stuannouuid,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null  and id !=0"  >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null and typeid != '' " >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="stuuuid != null and stuuuid !='' " >
+        #{stuuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="areId != null and areId !=0 " >
+        #{areId,jdbcType=INTEGER},
+      </if>
+      <if test="otherDesc != null" >
+        #{otherDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null and sex != 0 " >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="yxbz != null" >
+        #{yxbz,jdbcType=CHAR},
+      </if>
+      <if test="pubdate != null" >
+        #{pubdate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.icff.tutoring.po.StuannouncementExample" resultType="java.lang.Integer" >
+    select count(*) from stuannouncement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stuannouncement
+    <set >
+      <if test="record.stuannouuid != null" >
+        stuannouuid = #{record.stuannouuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeid != null" >
+        typeid = #{record.typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuuuid != null" >
+        stuuuid = #{record.stuuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areId != null" >
+        are_id = #{record.areId,jdbcType=INTEGER},
+      </if>
+      <if test="record.otherDesc != null" >
+        other_desc = #{record.otherDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.yxbz != null" >
+        yxbz = #{record.yxbz,jdbcType=CHAR},
+      </if>
+      <if test="record.pubdate != null" >
+        pubdate = #{record.pubdate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stuannouncement
+    set stuannouuid = #{record.stuannouuid,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=INTEGER},
+      typeid = #{record.typeid,jdbcType=VARCHAR},
+      stuuuid = #{record.stuuuid,jdbcType=VARCHAR},
+      are_id = #{record.areId,jdbcType=INTEGER},
+      other_desc = #{record.otherDesc,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      yxbz = #{record.yxbz,jdbcType=CHAR},
+      pubdate = #{record.pubdate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icff.tutoring.po.Stuannouncement" >
+    update stuannouncement
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        typeid = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="stuuuid != null" >
+        stuuuid = #{stuuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="areId != null" >
+        are_id = #{areId,jdbcType=INTEGER},
+      </if>
+      <if test="otherDesc != null" >
+        other_desc = #{otherDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="yxbz != null" >
+        yxbz = #{yxbz,jdbcType=CHAR},
+      </if>
+      <if test="pubdate != null" >
+        pubdate = #{pubdate,jdbcType=DATE},
+      </if>
+    </set>
+    where stuannouuid = #{stuannouuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icff.tutoring.po.Stuannouncement" >
+    update stuannouncement
+    set id = #{id,jdbcType=INTEGER},
+      typeid = #{typeid,jdbcType=VARCHAR},
+      stuuuid = #{stuuuid,jdbcType=VARCHAR},
+      are_id = #{areId,jdbcType=INTEGER},
+      other_desc = #{otherDesc,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      yxbz = #{yxbz,jdbcType=CHAR},
+      pubdate = #{pubdate,jdbcType=DATE}
+    where stuannouuid = #{stuannouuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectStuAnnoDtoBySADto" resultType="com.icff.tutoring.dto.StuAnnouncementDto" parameterType="com.icff.tutoring.dto.StuAnnouncementDto">
+  select 
+  u.realname,
+  u.phone,
+  u.address,
+  u.sex as usersex,
+  s.stuuuid,
+  sn.stuannouuid,
+  sn.id,
+  sn.typeid,
+  sn.are_id,
+  sn.other_desc,
+  sn.sex,
+  sn.pubdate,
+  a.area_describe,
+  t.type_describe,
+  g.gradename,
+  g.rank from grade g,user u,student s,stuannouncement sn,area a,tutorialclasstype t 
+           
+           where u.uuid = s.stuuuid and sn.stuuuid = s.stuuuid and sn.id =g.id and sn.are_id = a.id and sn.typeid = t.typeid and g.yxbz = 'Y' and u.yxbz = 'Y' and sn.yxbz='Y' and t.yxbz = 'Y' and a.yxbz = 'Y'
+           <if test="stuAnnouncementDto.stuannouuid != null and stuAnnouncementDto.stuannouuid !=''">
+           and sn.stuannouuid like "%"#{stuAnnouncementDto.stuannouuid,jdbcType=VARCHAR}"%" 
+           </if>
+           <if test="stuAnnouncementDto.are_id !=0">
+           and sn.are_id = #{stuAnnouncementDto.are_id,jdbcType=INTEGER}
+           </if>
+           <if test="stuAnnouncementDto.typeid != null and stuAnnouncementDto.typeid  != ''">
+           and sn.typeid = #{stuAnnouncementDto.typeid,jdbcType=VARCHAR}
+           </if>
+           <if test="stuAnnouncementDto.sex != 0">
+           and sn.sex = #{stuAnnouncementDto.sex,jdbcType=INTEGER}
+           </if>
+           <if test="stuAnnouncementDto.rank != 0">
+            and g.rank    &lt;=  #{stuAnnouncementDto.rank,jdbcType=INTEGER}
+           </if>
+            order by sn.pubdate desc
+  
+  </select>
+  
+  <select id="selectStuAnnoDtoByuuid" parameterType="java.lang.String" resultType="com.icff.tutoring.dto.StuAnnouncementDto">
+   select 
+  u.realname,
+  u.phone,
+  u.address,
+  u.sex as usersex,
+  s.stuuuid,
+  sn.stuannouuid,
+  sn.id,
+  sn.typeid,
+  sn.are_id,
+  sn.other_desc,
+  sn.sex,
+  sn.pubdate,
+  a.area_describe,
+  t.type_describe,
+  g.gradename,
+  g.rank from grade g,user u,student s,stuannouncement sn,area a,tutorialclasstype t 
+  where u.uuid = s.stuuuid and sn.stuuuid = s.stuuuid and sn.id =g.id and sn.are_id = a.id and sn.typeid = t.typeid and g.yxbz = 'Y' and u.yxbz = 'Y' and sn.yxbz='Y' and t.yxbz = 'Y' and a.yxbz = 'Y'
+  and sn.stuannouuid = #{stuannouuid,jdbcType=VARCHAR}
+  </select>
+</mapper>

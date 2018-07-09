@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icff.tutoring.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.icff.tutoring.po.Teacher" >
+    <id column="teacuuid" property="teacuuid" jdbcType="VARCHAR" />
+    <result column="scuuid" property="scuuid" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    teacuuid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.icff.tutoring.po.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from teacher
+    where teacuuid = #{teacuuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.icff.tutoring.po.TeacherExample" >
+    delete from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.icff.tutoring.po.Teacher" >
+    insert into teacher (teacuuid)
+    values (#{teacuuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icff.tutoring.po.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacuuid != null and teacuuid != '' "  >
+        teacuuid,
+      </if>
+      <if test="scuuid != null and teacuuid != '' " >
+        scuuid,
+      </if>
+      <if test="price !=null and price != 0.0">
+      price,
+      </if>
+        
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="teacuuid != null and teacuuid != '' "  >
+        #{teacuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="scuuid != null and teacuuid != '' " >
+         #{scuuid,jdbcType=VARCHAR},
+      </if>
+       <if test="price !=null and price != 0.0">
+         #{price,jdbcType=DOUBLE},
+         </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.icff.tutoring.po.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update teacher
+    <set >
+      <if test="record.teacuuid != null" >
+        teacuuid = #{record.teacuuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacher
+    set teacuuid = #{record.teacuuid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectByuuid" resultMap="BaseResultMap" parameterType="java.lang.String">
+   select
+    <include refid="Base_Column_List" />
+    from teacher
+    where teacuuid = #{teacuuid,jdbcType=VARCHAR}
+  </select>
+  <update id="updateByTeacher"  parameterType="com.icff.tutoring.po.Teacher" >
+  update teacher
+  <set >
+      <if test="teacher.scuuid != null" >
+        scuuid = #{teacher.scuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher.price != null" >
+        price = #{teacher.price,jdbcType=DOUBLE}
+      </if>
+    </set>
+     where teacuuid = #{teacher.teacuuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

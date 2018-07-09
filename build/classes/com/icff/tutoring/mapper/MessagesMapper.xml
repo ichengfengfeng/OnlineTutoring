@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icff.tutoring.mapper.MessagesMapper" >
+  <resultMap id="BaseResultMap" type="com.icff.tutoring.po.Messages" >
+    <id column="lyid" property="lyid" jdbcType="VARCHAR" />
+    <result column="stuuuid" property="stuuuid" jdbcType="VARCHAR" />
+    <result column="teacuuid" property="teacuuid" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="yxbz" property="yxbz" jdbcType="CHAR" />
+    <result column="lydatetime" property="lydatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    lyid, stuuuid, teacuuid, description, yxbz,lydatetime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.icff.tutoring.po.MessagesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from messages
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from messages
+    where lyid = #{lyid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from messages
+    where lyid = #{lyid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.icff.tutoring.po.MessagesExample" >
+    delete from messages
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.icff.tutoring.po.Messages" >
+    insert into messages (lyid, stuuuid, teacuuid, 
+      description, yxbz)
+    values (#{lyid,jdbcType=VARCHAR}, #{stuuuid,jdbcType=VARCHAR}, #{teacuuid,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{yxbz,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icff.tutoring.po.Messages" >
+    insert into messages
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lyid != null and lyid != '' " >
+        lyid,
+      </if>
+      <if test="stuuuid != null and stuuuid !='' " >
+        stuuuid,
+      </if>
+      <if test="teacuuid != null and teacuuid != '' " >
+        teacuuid,
+      </if>
+      <if test="description != null and description !=''" >
+        description,
+      </if>
+      <if test="yxbz != null and yxbz != ''" >
+        yxbz,
+      </if>
+       <if test="lydatetime != null" >
+        lydatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lyid != null and lyid != '' " >
+        #{lyid,jdbcType=VARCHAR},
+      </if>
+      <if test="stuuuid != null and stuuuid !='' " >
+        #{stuuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="teacuuid != null and teacuuid != '' " >
+        #{teacuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description !=''" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="yxbz != null and yxbz != ''" >
+        #{yxbz,jdbcType=CHAR},
+      </if>
+       <if test="lydatetime != null" >
+       #{lydatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.icff.tutoring.po.MessagesExample" resultType="java.lang.Integer" >
+    select count(*) from messages
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update messages
+    <set >
+      <if test="record.lyid != null" >
+        lyid = #{record.lyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuuuid != null" >
+        stuuuid = #{record.stuuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacuuid != null" >
+        teacuuid = #{record.teacuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yxbz != null" >
+        yxbz = #{record.yxbz,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update messages
+    set lyid = #{record.lyid,jdbcType=VARCHAR},
+      stuuuid = #{record.stuuuid,jdbcType=VARCHAR},
+      teacuuid = #{record.teacuuid,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      yxbz = #{record.yxbz,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icff.tutoring.po.Messages" >
+    update messages
+    <set >
+      <if test="stuuuid != null" >
+        stuuuid = #{stuuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="teacuuid != null" >
+        teacuuid = #{teacuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="yxbz != null" >
+        yxbz = #{yxbz,jdbcType=CHAR},
+      </if>
+    </set>
+    where lyid = #{lyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icff.tutoring.po.Messages" >
+    update messages
+    set stuuuid = #{stuuuid,jdbcType=VARCHAR},
+      teacuuid = #{teacuuid,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      yxbz = #{yxbz,jdbcType=CHAR}
+    where lyid = #{lyid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectMessagesSelective" parameterType="com.icff.tutoring.dto.MessagesDto" resultType="com.icff.tutoring.dto.MessagesDto">
+ SELECT 
+    u.realname,
+    u.headimg,
+    s.stuuuid,
+    u.sex,
+    m.description,
+    m.lydatetime,
+    m.lyid,
+    m.teacuuid,
+    m.yxbz
+FROM
+    messages m,
+    user u,
+    student s
+WHERE
+    m.stuuuid = s.stuuuid
+        AND s.stuuuid = u.uuid
+      <if test="record.lyid != null and record.lyid !='' " >
+       and  m.lyid = #{record.lyid,jdbcType=VARCHAR}
+      </if>
+      <if test="record.stuuuid != null and record.stuuuid !='' " >
+       and m.stuuuid = #{record.stuuuid,jdbcType=VARCHAR}
+      </if>
+      <if test="record.teacuuid != null and record.teacuuid !='' " >
+        and m.teacuuid = #{record.teacuuid,jdbcType=VARCHAR}
+      </if>
+      <if test="record.description != null and record.description !='' " >
+        and m.description like "%"#{record.description,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="record.yxbz != null and record.yxbz !='' " >
+        and m.yxbz = #{record.yxbz,jdbcType=CHAR}
+      </if>
+       <if test="record.lydatetime != null" >
+        and m.lydatetime = #{record.lydatetime,jdbcType=TIMESTAMP}
+      </if>
+ORDER BY m.lydatetime desc
+LIMIT 0 , 9
+  </select>
+</mapper>

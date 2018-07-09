@@ -1,0 +1,19 @@
+function add() {
+	debugger;
+	$.ajax({
+		type: "post",
+		url: "add",
+		data: $('#addtutor').serialize(),
+		success: function(data) {
+			if(data=="success") {
+				alert("添加成功");
+			}else{
+				alert("添加失败");
+			}
+			
+		},
+		error: function() {
+            alert("未登录或者网络异常");
+		}
+	});
+}

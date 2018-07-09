@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icff.tutoring.mapper.SchoolMapper" >
+  <resultMap id="BaseResultMap" type="com.icff.tutoring.po.School" >
+    <id column="scuuid" property="scuuid" jdbcType="VARCHAR" />
+    <result column="scname" property="scname" jdbcType="VARCHAR" />
+    <result column="scdesc" property="scdesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scuuid, scname, scdesc
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.icff.tutoring.po.SchoolExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from school
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from school
+    where scuuid = #{scuuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from school
+    where scuuid = #{scuuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.icff.tutoring.po.SchoolExample" >
+    delete from school
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.icff.tutoring.po.School" >
+    insert into school (scuuid, scname, scdesc
+      )
+    values (#{scuuid,jdbcType=VARCHAR}, #{scname,jdbcType=VARCHAR}, #{scdesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.icff.tutoring.po.School" >
+    insert into school
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scuuid != null" >
+        scuuid,
+      </if>
+      <if test="scname != null" >
+        scname,
+      </if>
+      <if test="scdesc != null" >
+        scdesc,
+      </if>
+      <if test="yxbz != null" >
+        yxbz,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scuuid != null" >
+        #{scuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="scname != null" >
+        #{scname,jdbcType=VARCHAR},
+      </if>
+      <if test="scdesc != null" >
+        #{scdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="yxbz != null" >
+        #{yxbz,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.icff.tutoring.po.SchoolExample" resultType="java.lang.Integer" >
+    select count(*) from school
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update school
+    <set >
+      <if test="record.scuuid != null" >
+        scuuid = #{record.scuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scname != null" >
+        scname = #{record.scname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scdesc != null" >
+        scdesc = #{record.scdesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update school
+    set scuuid = #{record.scuuid,jdbcType=VARCHAR},
+      scname = #{record.scname,jdbcType=VARCHAR},
+      scdesc = #{record.scdesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icff.tutoring.po.School" >
+    update school
+    <set >
+      <if test="scname != null" >
+        scname = #{scname,jdbcType=VARCHAR},
+      </if>
+      <if test="scdesc != null" >
+        scdesc = #{scdesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scuuid = #{scuuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icff.tutoring.po.School" >
+    update school
+    set scname = #{scname,jdbcType=VARCHAR},
+      scdesc = #{scdesc,jdbcType=VARCHAR}
+    where scuuid = #{scuuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectSchool" resultMap="BaseResultMap">
+     select 
+      <include refid="Base_Column_List" />
+    from school 
+    where yxbz = 'Y'
+  </select>
+  <select id="selectSchoolByPage" parameterType="map" resultType="com.icff.tutoring.po.School">
+  select @num := @num + 1 as num,scuuid,scname,scdesc,yxbz
+   from school,(select @num := 0) tmp_row_number where yxbz = 'Y' 
+   limit #{start,jdbcType=INTEGER},#{end,jdbcType=INTEGER} 
+  </select>
+  
+  <select id="selectAllCount" resultType="java.lang.Integer">
+   select count(*) as maxcount from school where yxbz = 'Y';
+  </select>
+  
+  <update id="deleteSchools">
+   update  school set yxbz='N' where scuuid in
+  <foreach collection="array" open="(" close=")" separator="," item="scuuid">
+   #{scuuid}
+  </foreach>
+  </update>
+</mapper>

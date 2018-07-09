@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icff.tutoring.mapper.TutorialclasstypeMapper" >
+  <resultMap id="BaseResultMap" type="com.icff.tutoring.po.Tutorialclasstype" >
+    <id column="typeid" property="typeid" jdbcType="VARCHAR" />
+    <result column="super_typeid" property="superTypeid" jdbcType="VARCHAR" />
+    <result column="type_describe" property="typeDescribe" jdbcType="VARCHAR" />
+    <result column="yxbz" property="yxbz" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    typeid, super_typeid, type_describe, yxbz
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.icff.tutoring.po.TutorialclasstypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tutorialclasstype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tutorialclasstype
+    where typeid = #{typeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tutorialclasstype
+    where typeid = #{typeid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.icff.tutoring.po.TutorialclasstypeExample" >
+    delete from tutorialclasstype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.icff.tutoring.po.Tutorialclasstype" >
+    insert into tutorialclasstype (typeid, super_typeid, type_describe, 
+      yxbz)
+    values (#{typeid,jdbcType=VARCHAR}, #{superTypeid,jdbcType=VARCHAR}, #{typeDescribe,jdbcType=VARCHAR}, 
+      #{yxbz,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icff.tutoring.po.Tutorialclasstype" >
+    insert into tutorialclasstype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        typeid,
+      </if>
+      <if test="superTypeid != null and superTypeid != '' " >
+        super_typeid,
+      </if>
+      <if test="typeDescribe != null" >
+        type_describe,
+      </if>
+      <if test="yxbz != null" >
+        yxbz,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="superTypeid != null and superTypeid != '' " >
+        #{superTypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeDescribe != null" >
+        #{typeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="yxbz != null" >
+        #{yxbz,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.icff.tutoring.po.TutorialclasstypeExample" resultType="java.lang.Integer" >
+    select count(*) from tutorialclasstype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tutorialclasstype
+    <set >
+      <if test="record.typeid != null" >
+        typeid = #{record.typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superTypeid != null" >
+        super_typeid = #{record.superTypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeDescribe != null" >
+        type_describe = #{record.typeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yxbz != null" >
+        yxbz = #{record.yxbz,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tutorialclasstype
+    set typeid = #{record.typeid,jdbcType=VARCHAR},
+      super_typeid = #{record.superTypeid,jdbcType=VARCHAR},
+      type_describe = #{record.typeDescribe,jdbcType=VARCHAR},
+      yxbz = #{record.yxbz,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icff.tutoring.po.Tutorialclasstype" >
+    update tutorialclasstype
+    <set >
+      <if test="superTypeid != null" >
+        super_typeid = #{superTypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeDescribe != null" >
+        type_describe = #{typeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="yxbz != null" >
+        yxbz = #{yxbz,jdbcType=CHAR},
+      </if>
+    </set>
+    where typeid = #{typeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icff.tutoring.po.Tutorialclasstype" >
+    update tutorialclasstype
+    set super_typeid = #{superTypeid,jdbcType=VARCHAR},
+      type_describe = #{typeDescribe,jdbcType=VARCHAR},
+      yxbz = #{yxbz,jdbcType=CHAR}
+    where typeid = #{typeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectTutorialclasstype" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from tutorialclasstype
+    where yxbz = 'Y'
+  </select>
+  <select id="selectSuperTutorialclasstype" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from tutorialclasstype
+     where yxbz = 'Y' and  super_typeid is null
+  </select>
+  <select id="selectLowerTutorialclasstype" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   select 
+    <include refid="Base_Column_List" />
+    from tutorialclasstype
+     where yxbz = 'Y' and  super_typeid = #{typeid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+  select count(*) as maxcount from tutorialclasstype where yxbz = 'Y';
+  </select>
+  <select id="selectTutorialclasstypeByleftjoin" resultType="com.icff.tutoring.po.Tutorialclasstype" parameterType="map">
+  select t1.typeid,t1.super_typeid as superTypeid,t1.type_describe as typeDescribe,t2.type_describe as superDescribe from tutorialclasstype t1 left join tutorialclasstype t2 on t1.super_typeid = t2.typeid where t1.yxbz='Y' order by t2.type_describe 
+  limit #{start,jdbcType=INTEGER},#{end,jdbcType=INTEGER} 
+  </select>
+  <update id="deleteByByPrimaryKeys" parameterType="java.lang.String">
+  update  tutorialClassType set yxbz='N' where typeid in
+  <foreach collection="array" open="(" close=")" separator="," item="typeid">
+   #{typeid}
+  </foreach>
+  </update>
+</mapper>
